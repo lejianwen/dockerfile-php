@@ -1,11 +1,12 @@
 FROM centos
 MAINTAINER lejianwen <84855512@qq.com>
-RUN yum -y install epel-release autoconf bison gcc gcc++ make openssl openssl-devel curl curl-devel libxml2 libxml2-devel libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel wget re2c
-ENV setuppath /data/apps/php
+RUN yum -y install epel-release
+RUN yum -y install autoconf bison gcc gcc++ make openssl openssl-devel curl curl-devel libxml2 libxml2-devel libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel wget re2c
 RUN useradd -d 1000 www -s /sbin/nologin \
-  && mkdir /data/src -p && cd /data/src && wget http://cn2.php.net/distributions/php-7.0.28.tar.gz \
-  && tar -zxvf php-7.0.28.tar.gz \
-  && cd php-7.0.28 \
+    && mkdir /data/src/php -p && cd /data/src && wget https://www.php.net/distributions/php-7.2.17.tar.gz -O php.tar.gz \
+    && tar -zxvf php.tar.gz -C ./php --strip-components 1  && useradd www -s /sbin/nologin
+ENV setuppath /data/apps/php
+RUN cd /data/src/php \
   && ./configure --prefix=$setuppath \
      		--with-config-file-path=$setuppath/etc \
      		--with-mysqli=mysqlnd \
@@ -23,7 +24,6 @@ RUN useradd -d 1000 www -s /sbin/nologin \
      		--enable-fpm \
      		--enable-mbstring \
      		--enable-ftp \
-     		--enable-gd-native-ttf \
      		--with-openssl \
      		--enable-pcntl \
      		--enable-sockets \
@@ -36,19 +36,18 @@ RUN useradd -d 1000 www -s /sbin/nologin \
      		--enable-opcache \
      		--without-pear \
 #     		--disable-phar \
-#     		--disable-cli \
 #     		--disable-phpdbg \
      		--with-freetype-dir && make && make install \
      		&& cp -a ./php.ini-production $setuppath/etc/php.ini \
      		&& cp -a $setuppath/etc/php-fpm.conf.default $setuppath/etc/php-fpm.conf \
      		&& cp -a $setuppath/etc/php-fpm.d/www.conf.default $setuppath/etc/php-fpm.d/www.conf \
-     		&& make clean \
-  && cd /data/src && mkdir /data/src/phpredis -p \
+     		&& make clean
+RUN cd /data/src && mkdir /data/src/phpredis -p \
   && wget http://pecl.php.net/get/redis-4.0.0.tgz -O phpredis.tgz \
   &&  tar -zxvf phpredis.tgz -C ./phpredis --strip-components 1 && cd phpredis \
   && $setuppath/bin/phpize && ./configure --with-php-config=$setuppath/bin/php-config && make && make install \
-  && echo "extension_dir=\"$setuppath/lib/php/extensions/no-debug-non-zts-20151012/\"" >> $setuppath/etc/php.ini \
+  && echo "extension_dir=\"$setuppath/lib/php/extensions/no-debug-non-zts-20170718/\"" >> $setuppath/etc/php.ini \
   && echo 'extension = "redis.so"' >> $setuppath/etc/php.ini \
   && make clean && rm /data/src -rf
 EXPOSE 9000
-CMD ["/data/apps/php/bin/php", "-v"]
+CMD ["/data/apps/php/sbin/php-fpm", "--nodaemonize", "--fpm-config", "/data/apps/php/etc/php-fpm.conf"]

@@ -35,9 +35,9 @@ RUN useradd -d 1000 www -s /sbin/nologin \
      		--with-jpeg-dir \
      		--enable-opcache \
      		--without-pear \
-#     		--disable-phar \
-#     		--disable-cli \
-#     		--disable-phpdbg \
+     		--disable-phar \
+     		--disable-cli \
+     		--disable-phpdbg \
      		--with-freetype-dir && make && make install \
      		&& cp -a ./php.ini-production $setuppath/etc/php.ini \
      		&& cp -a $setuppath/etc/php-fpm.conf.default $setuppath/etc/php-fpm.conf \
@@ -49,6 +49,8 @@ RUN useradd -d 1000 www -s /sbin/nologin \
   && $setuppath/bin/phpize && ./configure --with-php-config=$setuppath/bin/php-config && make && make install \
   && echo "extension_dir=\"$setuppath/lib/php/extensions/no-debug-non-zts-20151012/\"" >> $setuppath/etc/php.ini \
   && echo 'extension = "redis.so"' >> $setuppath/etc/php.ini \
-  && make clean && rm /data/src -rf
+  && make clean && rm /data/src -rf \
+  && sed -i 's/user = nobody/user = www/' /data/apps/php/etc/php-fpm.d/www.conf \
+  && sed -i 's/group = nobody/group = www/' /data/apps/php/etc/php-fpm.d/www.conf
 EXPOSE 9000
-CMD ["/data/apps/php/bin/php", "-v"]
+CMD ["/data/apps/php/sbin/php-fpm", "--nodaemonize", "--fpm-config", "/data/apps/php/etc/php-fpm.conf"]
