@@ -56,6 +56,8 @@ RUN	cp /lib64/libcrypt.so.1 ./lib64 \
     && sed -i 's/user = nobody/user = www/' /data/apps/php/etc/php-fpm.d/www.conf \
     && sed -i 's/group = nobody/group = www/' /data/apps/php/etc/php-fpm.d/www.conf
 # RUN tar -cf /rootfs.tar .
+
+
 FROM busybox
 MAINTAINER lejianwen <84855512@qq.com>
 
@@ -63,16 +65,12 @@ RUN echo www:x:1000:1000:www:/:/bin/sh >> etc/passwd \
         && echo www:x:1000: >> etc/group
 RUN mkdir /lib \
     && ln -s /lib /lib64 \
-    && mkdir /data
+    && mkdir /data && touch /etc/resolv.conf
 
-COPY --from=php-builder /etc/nsswitch.conf /etc/
-COPY --from=php-builder /etc/pki /etc/
+COPY --from=php-builder /etc/nsswitch.conf /etc/nsswitch.conf
+COPY --from=php-builder /etc/pki /etc/pki
 COPY --from=php-builder /rootfs/lib64/* /lib64/
 COPY --from=php-builder /data/ /data/
-
-RUN touch /etc/resolv.conf \
-    && mkdir -p /etc/ssl/certs \
-    && ln -s /etc/pki /etc/ssl/certs
 
 EXPOSE 9000
 CMD ["/data/apps/php/sbin/php-fpm", "--nodaemonize", "--fpm-config", "/data/apps/php/etc/php-fpm.conf"]
