@@ -53,6 +53,7 @@ RUN	cp /lib64/libcrypt.so.1 ./lib64 \
 #    && ln -s /etc/pki /etc/ssl/certs \
     && echo `strip /data/apps/php/bin/*  > /dev/null` \
     && strip /data/apps/php/sbin/php-fpm \
+    && strip /data/apps/php/lib/php/extensions/no-debug-non-zts-20151012/* \
     && sed -i 's/user = nobody/user = www/' /data/apps/php/etc/php-fpm.d/www.conf \
     && sed -i 's/group = nobody/group = www/' /data/apps/php/etc/php-fpm.d/www.conf
 

@@ -2,3 +2,4 @@
 
 * 都默认安装了redis模块
 
+* swoole镜像中不安装fpm

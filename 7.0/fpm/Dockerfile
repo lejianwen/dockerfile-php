@@ -2,10 +2,13 @@ FROM centos
 MAINTAINER lejianwen <84855512@qq.com>
 RUN yum -y install epel-release autoconf bison gcc gcc++ make openssl openssl-devel curl curl-devel libxml2 libxml2-devel libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel wget re2c
 ENV setuppath /data/apps/php
-RUN useradd -d 1000 www -s /sbin/nologin \
-  && mkdir /data/src -p && cd /data/src && wget http://cn2.php.net/distributions/php-7.0.28.tar.gz \
-  && tar -zxvf php-7.0.28.tar.gz \
-  && cd php-7.0.28 \
+ENV downurl https://www.php.net/distributions/php-7.0.33.tar.gz
+RUN useradd -u 1000 www -s /sbin/nologin \
+  && mkdir /data/src/php -p \
+  && cd /data/src \
+  && wget $downurl -O php.tar.gz \
+  && tar -zxf php.tar.gz -C ./php --strip-components 1  \
+  && cd php \
   && ./configure --prefix=$setuppath \
      		--with-config-file-path=$setuppath/etc \
      		--with-mysqli=mysqlnd \
