@@ -1,11 +1,16 @@
 FROM centos
 MAINTAINER lejianwen <84855512@qq.com>
-RUN yum -y install epel-release
-RUN yum -y install autoconf bison gcc gcc++ make openssl openssl-devel curl curl-devel libxml2 libxml2-devel libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel wget re2c
-RUN useradd -d 1000 www -s /sbin/nologin \
-    && mkdir /data/src/php -p && cd /data/src && wget https://www.php.net/distributions/php-7.2.17.tar.gz -O php.tar.gz \
-    && tar -zxvf php.tar.gz -C ./php --strip-components 1  && useradd www -s /sbin/nologin
+RUN yum -y install epel-release autoconf bison gcc gcc++ make openssl openssl-devel curl curl-devel libxml2 libxml2-devel libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel wget re2c
+
 ENV setuppath /data/apps/php
+ENV downurl https://www.266555.net/php-7.2.18.tar.gz
+
+RUN useradd -u 1000 www -s /sbin/nologin \
+  && mkdir /data/src/php -p  /data/apps/php/etc \
+  && cd /data/src \
+  && wget $downurl -O php.tar.gz \
+  && tar -zxf php.tar.gz -C ./php --strip-components 1
+
 RUN cd /data/src/php \
   && ./configure --prefix=$setuppath \
      		--with-config-file-path=$setuppath/etc \
@@ -35,9 +40,9 @@ RUN cd /data/src/php \
      		--with-jpeg-dir \
      		--enable-opcache \
      		--without-pear \
-#     		--disable-phar \
-#     		--disable-phpdbg \
-     		--with-freetype-dir && make && make install \
+     		--disable-phar \
+     		--disable-phpdbg \
+     		--with-freetype-dir && make -j24 && make install \
      		&& cp -a ./php.ini-production $setuppath/etc/php.ini \
      		&& cp -a $setuppath/etc/php-fpm.conf.default $setuppath/etc/php-fpm.conf \
      		&& cp -a $setuppath/etc/php-fpm.d/www.conf.default $setuppath/etc/php-fpm.d/www.conf \
