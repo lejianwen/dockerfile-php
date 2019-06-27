@@ -49,7 +49,7 @@ RUN cd /data/src/php \
      		&& make clean
 RUN cd /data/src && mkdir /data/src/phpredis -p \
   && wget http://pecl.php.net/get/redis-4.0.0.tgz -O phpredis.tgz \
-  &&  tar -zxvf phpredis.tgz -C ./phpredis --strip-components 1 && cd phpredis \
+  &&  tar -zxf phpredis.tgz -C ./phpredis --strip-components 1 && cd phpredis \
   && $setuppath/bin/phpize && ./configure --with-php-config=$setuppath/bin/php-config && make && make install \
   && echo "extension_dir=\"$setuppath/lib/php/extensions/no-debug-non-zts-20180731/\"" >> $setuppath/etc/php.ini \
   && echo 'extension = "redis.so"' >> $setuppath/etc/php.ini \

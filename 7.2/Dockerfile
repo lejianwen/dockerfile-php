@@ -24,7 +24,7 @@ RUN cd /data/src/php \
      		--enable-bcmath \
      		--enable-shmop \
      		--enable-sysvsem \
-     		--enable-inline-optimization \
+     		--enable-inline-optimization \Dockerfile
      		--enable-mbregex \
      		--enable-fpm \
      		--enable-mbstring \
