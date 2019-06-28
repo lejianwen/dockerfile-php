@@ -1,7 +1,7 @@
 version: '3'
 services:
   php70-fpm:
-    image: lejianwen/php:1.0.2
+    image: lejianwen/php:70-1.0
     #    build:
     #      context: ./7.0
     ports:
