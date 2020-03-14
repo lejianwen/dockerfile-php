@@ -55,5 +55,7 @@ RUN cd /data/src && mkdir /data/src/phpredis -p \
   && echo "extension_dir=\"$setuppath/lib/php/extensions/no-debug-non-zts-20170718/\"" >> $setuppath/etc/php.ini \
   && echo 'extension = "redis.so"' >> $setuppath/etc/php.ini \
   && make clean && rm /data/src -rf
+
+RUN cp /data/apps/php/sbin/php-fpm /sbin/
 EXPOSE 9000
-CMD ["/data/apps/php/sbin/php-fpm", "--nodaemonize", "--fpm-config", "/data/apps/php/etc/php-fpm.conf"]
+CMD ["php-fpm", "--nodaemonize", "--fpm-config", "/data/apps/php/etc/php-fpm.conf"]

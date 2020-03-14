@@ -1,5 +1,7 @@
 # 构建php的Dockerfile
 
+* 7.2
+
 * 都默认安装了redis模块
 
 * swoole镜像中不安装fpm
