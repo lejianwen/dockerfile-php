@@ -3,7 +3,7 @@ MAINTAINER lejianwen <84855512@qq.com>
 RUN yum -y install epel-release autoconf bison gcc gcc-c++ make openssl openssl-devel curl curl-devel libxml2 libxml2-devel libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel wget
 
 ENV setuppath /data/apps/php
-ENV downurl https://www.266555.net/php-7.2.18.tar.gz
+ENV downurl https://www.266555.net/php-7.3.6.tar.gz
 
 RUN useradd -u 1000 www -s /sbin/nologin \
   && mkdir /data/src/php -p  /data/apps/php/etc \
@@ -40,9 +40,9 @@ RUN cd /data/src/php \
      		--with-jpeg-dir \
      		--enable-opcache \
      		--without-pear \
-     		--disable-cli \
      		--disable-phar \
-     		--disable-phpdbg \
+        --disable-cli \
+        --disable-phpdbg \
      		--with-freetype-dir && make -j24 && make install \
      		&& cp -a ./php.ini-production $setuppath/etc/php.ini \
      		&& cp -a $setuppath/etc/php-fpm.conf.default $setuppath/etc/php-fpm.conf \
@@ -50,10 +50,13 @@ RUN cd /data/src/php \
      		&& make clean
 RUN cd /data/src && mkdir /data/src/phpredis -p \
   && wget http://pecl.php.net/get/redis-4.0.0.tgz -O phpredis.tgz \
-  &&  tar -zxvf phpredis.tgz -C ./phpredis --strip-components 1 && cd phpredis \
+  &&  tar -zxf phpredis.tgz -C ./phpredis --strip-components 1 && cd phpredis \
   && $setuppath/bin/phpize && ./configure --with-php-config=$setuppath/bin/php-config && make && make install \
-  && echo "extension_dir=\"$setuppath/lib/php/extensions/no-debug-non-zts-20170718/\"" >> $setuppath/etc/php.ini \
+  && echo "extension_dir=\"$setuppath/lib/php/extensions/no-debug-non-zts-20180731/\"" >> $setuppath/etc/php.ini \
   && echo 'extension = "redis.so"' >> $setuppath/etc/php.ini \
   && make clean && rm /data/src -rf
+
+RUN mkdir /sbin -p && cp /data/apps/php/sbin/php-fpm /sbin/
+
 EXPOSE 9000
-CMD ["/data/apps/php/sbin/php-fpm", "--nodaemonize", "--fpm-config", "/data/apps/php/etc/php-fpm.conf"]
+CMD ["php-fpm", "--nodaemonize", "--fpm-config", "/data/apps/php/etc/php-fpm.conf"]
