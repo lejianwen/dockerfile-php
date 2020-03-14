@@ -40,6 +40,7 @@ RUN cd /data/src/php \
      		--with-jpeg-dir \
      		--enable-opcache \
      		--without-pear \
+     		--disable-cli \
      		--disable-phar \
      		--disable-phpdbg \
      		--with-freetype-dir && make -j24 && make install \
