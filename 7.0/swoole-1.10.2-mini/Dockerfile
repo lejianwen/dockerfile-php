@@ -134,6 +134,6 @@ COPY --from=php-builder /etc/nsswitch.conf /etc/nsswitch.conf
 COPY --from=php-builder /etc/pki /etc/pki
 COPY --from=php-builder /rootfs/lib64/* /lib64/
 COPY --from=php-builder /data/ /data/
-
+COPY /data/apps/php/bin/php /bin/
 EXPOSE 9000
-CMD ["/data/apps/php/bin/php", "-v"]
+CMD ["php", "-v"]

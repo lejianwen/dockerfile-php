@@ -53,5 +53,9 @@ RUN useradd -u 1000 www -s /sbin/nologin \
   && echo "extension_dir=\"$setuppath/lib/php/extensions/no-debug-non-zts-20151012/\"" >> $setuppath/etc/php.ini \
   && echo 'extension = "redis.so"' >> $setuppath/etc/php.ini \
   && make clean && rm /data/src -rf
+
+COPY /data/apps/php/bin/php /bin/
+COPY /data/apps/php/sbin/php-fpm /sbin/
+
 EXPOSE 9000
-CMD ["/data/apps/php/bin/php", "-v"]
+CMD ["php", "-v"]

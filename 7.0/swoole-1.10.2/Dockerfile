@@ -62,5 +62,7 @@ RUN cd /data/src/php  \
   && make -j24 && make install \
   && echo 'extension = "swoole.so"' >> $setuppath/etc/php.ini \
   && rm /data/src -rf
+
+COPY /data/apps/php/bin/php /bin/
 EXPOSE 9000
-CMD ["/data/apps/php/bin/php", "-v"]
+CMD ["php", "-v"]
