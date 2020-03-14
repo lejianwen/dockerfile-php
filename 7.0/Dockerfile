@@ -1,6 +1,6 @@
 FROM centos
 MAINTAINER lejianwen <84855512@qq.com>
-RUN yum -y install epel-release autoconf bison gcc gcc++ make openssl openssl-devel curl curl-devel libxml2 libxml2-devel libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel wget re2c
+RUN yum -y install epel-release autoconf bison gcc gcc-c++ make openssl openssl-devel curl curl-devel libxml2 libxml2-devel libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel wget
 ENV setuppath /data/apps/php
 ENV downurl https://www.266555.net/php-7.0.33.tar.gz
 RUN useradd -u 1000 www -s /sbin/nologin \
