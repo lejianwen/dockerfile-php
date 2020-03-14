@@ -5,7 +5,7 @@ services:
       context: ./
     ports:
       - '9000:9000'
-    command: /data/apps/php/sbin/php-fpm --nodaemonize --fpm-config /data/apps/php/etc/php-fpm.conf
+    command: php-fpm --nodaemonize --fpm-config /data/apps/php/etc/php-fpm.conf
     volumes:
       - '/data/htdocs:/data/htdocs'
       - '/data/etc/php:/data/apps/php/etc'
