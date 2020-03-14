@@ -134,7 +134,7 @@ COPY --from=php-builder /rootfs/lib64/* /lib64/
 COPY --from=php-builder /usr/local/lib/libzip.so.5 /usr/local/lib/
 COPY --from=php-builder /data/ /data/
 
-RUN cp /data/apps/php/sbin/php-fpm /sbin/
+RUN mkdir /sbin -p && cp /data/apps/php/sbin/php-fpm /sbin/
 
 EXPOSE 9000
 CMD ["php", "-v"]
