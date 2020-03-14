@@ -137,5 +137,5 @@ COPY --from=php-builder /data/ /data/
 RUN mkdir /sbin -p && cp /data/apps/php/sbin/php-fpm /sbin/
 
 EXPOSE 9000
-CMD ["php", "-v"]
+CMD ["php-fpm", "--nodaemonize", "--fpm-config", "/data/apps/php/etc/php-fpm.conf"]
 
