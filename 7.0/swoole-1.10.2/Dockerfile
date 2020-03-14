@@ -63,6 +63,6 @@ RUN cd /data/src/php  \
   && echo 'extension = "swoole.so"' >> $setuppath/etc/php.ini \
   && rm /data/src -rf
 
-COPY /data/apps/php/bin/php /bin/
+RUN cp /data/apps/php/bin/php /bin/
 EXPOSE 9000
 CMD ["php", "-v"]

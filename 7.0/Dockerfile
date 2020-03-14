@@ -54,8 +54,8 @@ RUN useradd -u 1000 www -s /sbin/nologin \
   && echo 'extension = "redis.so"' >> $setuppath/etc/php.ini \
   && make clean && rm /data/src -rf
 
-COPY /data/apps/php/bin/php /bin/
-COPY /data/apps/php/sbin/php-fpm /sbin/
+RUN cp /data/apps/php/bin/php /bin/
+RUN cp /data/apps/php/sbin/php-fpm /sbin/
 
 EXPOSE 9000
 CMD ["php", "-v"]

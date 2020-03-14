@@ -126,7 +126,7 @@ COPY --from=php-builder /etc/nsswitch.conf /etc/nsswitch.conf
 COPY --from=php-builder /etc/pki /etc/pki
 COPY --from=php-builder /rootfs/lib64/* /lib64/
 COPY --from=php-builder /data/ /data/
-COPY /data/apps/php/bin/php /bin/
-COPY /data/apps/php/sbin/php-fpm /sbin/
+RUN cp /data/apps/php/bin/php /bin/
+RUN cp /data/apps/php/sbin/php-fpm /sbin/
 EXPOSE 9000
 CMD ["php", "-v"]
