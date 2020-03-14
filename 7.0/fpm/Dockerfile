@@ -55,6 +55,6 @@ RUN useradd -u 1000 www -s /sbin/nologin \
   && make clean && rm /data/src -rf \
   && sed -i 's/user = nobody/user = www/' /data/apps/php/etc/php-fpm.d/www.conf \
   && sed -i 's/group = nobody/group = www/' /data/apps/php/etc/php-fpm.d/www.conf
-RUN cp /data/apps/php/sbin/php-fpm /sbin/
+RUN mkdir /sbin -p && cp /data/apps/php/sbin/php-fpm /sbin/
 EXPOSE 9000
 CMD ["php-fpm", "--nodaemonize", "--fpm-config", "/data/apps/php/etc/php-fpm.conf"]

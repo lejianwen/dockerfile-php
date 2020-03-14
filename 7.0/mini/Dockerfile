@@ -127,6 +127,6 @@ COPY --from=php-builder /etc/pki /etc/pki
 COPY --from=php-builder /rootfs/lib64/* /lib64/
 COPY --from=php-builder /data/ /data/
 RUN cp /data/apps/php/bin/php /bin/
-RUN cp /data/apps/php/sbin/php-fpm /sbin/
+RUN mkdir /sbin -p && cp /data/apps/php/sbin/php-fpm /sbin/
 EXPOSE 9000
 CMD ["php", "-v"]
