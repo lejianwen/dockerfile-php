@@ -1,4 +1,4 @@
-FROM centos as php70-base
+FROM centos7 as php70-base
 MAINTAINER lejianwen <84855512@qq.com>
 RUN yum -y install epel-release autoconf bison gcc gcc-c++ make openssl openssl-devel curl curl-devel libxml2 libxml2-devel libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel wget
 ENV setuppath /data/apps/php
@@ -64,7 +64,7 @@ RUN	cp /lib64/libcrypt.so.1 ./lib64 \
 	&& cp /lib64/libz.so.1 ./lib64 \
 	&& cp /lib64/libresolv.so.2 ./lib64 \
 	&& cp /lib64/librt.so.1 ./lib64 \
-	&& cp /lib64/libpng16.so.16 ./lib64 \
+	&& cp /lib64/libpng15.so.15 ./lib64 \
 	&& cp /lib64/libjpeg.so.62 ./lib64 \
 	&& cp /lib64/libcurl.so.4 ./lib64 \
 	&& cp /lib64/libm.so.6 ./lib64 \
