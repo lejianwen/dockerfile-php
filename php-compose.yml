@@ -1,9 +1,8 @@
 version: '3'
 services:
   php70-fpm:
-    image: lejianwen/php:70-1.0
-    #    build:
-    #      context: ./7.0
+    build:
+      context: ./
     ports:
       - '9000:9000'
     command: /data/apps/php/sbin/php-fpm --nodaemonize --fpm-config /data/apps/php/etc/php-fpm.conf
