@@ -130,6 +130,6 @@ COPY --from=php-builder /etc/nsswitch.conf /etc/nsswitch.conf
 COPY --from=php-builder /etc/pki /etc/pki
 COPY --from=php-builder /rootfs/lib64/* /lib64/
 COPY --from=php-builder /data/ /data/
-COPY /data/apps/php/sbin/php-fpm /sbin/
+COPY --from=php-builder /data/apps/php/sbin/php-fpm /sbin/
 EXPOSE 9000
 CMD ["php-fpm", "--nodaemonize", "--fpm-config", "/data/apps/php/etc/php-fpm.conf"]
