@@ -56,7 +56,7 @@ RUN cd /data/src && mkdir /data/src/phpredis -p \
   && echo 'extension = "redis.so"' >> $setuppath/etc/php.ini \
   && make clean && rm /data/src -rf
 
-RUN mkdir /sbin -p && cp /data/apps/php/sbin/php-fpm /sbin/
+RUN mkdir /sbin -p && ln -s  /data/apps/php/sbin/php-fpm /sbin/php-fpm
 
 EXPOSE 9000
 CMD ["php-fpm", "--nodaemonize", "--fpm-config", "/data/apps/php/etc/php-fpm.conf"]

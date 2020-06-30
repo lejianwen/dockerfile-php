@@ -61,8 +61,8 @@ RUN cd /data/src && mkdir /data/src/phpredis -p \
   && echo 'extension = "redis.so"' >> $setuppath/etc/php.ini \
   && make clean && rm /data/src -rf
 
-RUN cp /data/apps/php/bin/php /bin/
-RUN cp /data/apps/php/sbin/php-fpm /sbin/
+RUN ln -s  /data/apps/php/bin/php /bin/php
+RUN ln -s  /data/apps/php/sbin/php-fpm /sbin/php-fpm
 
 EXPOSE 9000
 CMD ["php", "-v"]
