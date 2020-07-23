@@ -46,8 +46,9 @@ RUN cd /data/src/php \
      		--with-jpeg-dir \
      		--enable-opcache \
      		--without-pear \
-#     		--disable-phar \
-#     		--disable-phpdbg \
+     		--disable-phar \
+     		--disable-phpdbg \
+     		--disable-cgi \
      		--with-freetype-dir && make -j24 && make install \
      		&& cp -a ./php.ini-production $setuppath/etc/php.ini \
      		&& cp -a $setuppath/etc/php-fpm.conf.default $setuppath/etc/php-fpm.conf \
