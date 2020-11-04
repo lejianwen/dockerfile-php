@@ -1,23 +1,8 @@
-FROM centos:7
-MAINTAINER lejianwen <84855512@qq.com>
-RUN yum -y install epel-release autoconf bison gcc gcc-c++ make openssl openssl-devel curl curl-devel libxml2 libxml2-devel libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel wget
-
-ENV setuppath /data/apps/php
-ENV downurl https://www.266555.net/php-7.3.6.tar.gz
-
-RUN useradd -u 1000 www -s /sbin/nologin \
-  && mkdir /data/src/php -p  /data/apps/php/etc \
-  && cd /data/src \
-  && wget $downurl -O php.tar.gz \
-  && tar -zxf php.tar.gz -C ./php --strip-components 1
-
-# libzip
-RUN yum -y remove libzip libzip-devel
-RUN cd /data/src && wget https://libzip.org/download/libzip-1.3.2.tar.gz \
-    && tar -zxvf libzip-1.3.2.tar.gz  && cd /data/src/libzip-1.3.2 && ./configure && make && make install && make clean
-RUN ldconfig
-
-RUN cd /data/src/php \
+#!/bin/sh
+set -e
+setuppath=/data/apps/php
+# 编译php
+cd /data/src/php \
   && ./configure --prefix=$setuppath \
      		--with-config-file-path=$setuppath/etc \
      		--with-mysqli=mysqlnd \
@@ -46,23 +31,22 @@ RUN cd /data/src/php \
      		--with-jpeg-dir \
      		--enable-opcache \
      		--without-pear \
-#     		--disable-phar \
-#     		--disable-phpdbg \
-     		--with-freetype-dir && make -j24 && make install \
+     		--disable-cli \
+     		--disable-phar \
+     		--disable-phpdbg \
+     		--with-freetype-dir && make -j8 && make install \
      		&& cp -a ./php.ini-production $setuppath/etc/php.ini \
      		&& cp -a $setuppath/etc/php-fpm.conf.default $setuppath/etc/php-fpm.conf \
      		&& cp -a $setuppath/etc/php-fpm.d/www.conf.default $setuppath/etc/php-fpm.d/www.conf \
      		&& make clean
-RUN cd /data/src && mkdir /data/src/phpredis -p \
+
+#安装redis扩展
+cd /data/src && mkdir /data/src/phpredis -p \
   && wget http://pecl.php.net/get/redis-4.0.0.tgz -O phpredis.tgz \
   &&  tar -zxf phpredis.tgz -C ./phpredis --strip-components 1 && cd phpredis \
   && $setuppath/bin/phpize && ./configure --with-php-config=$setuppath/bin/php-config && make && make install \
-  && echo "extension_dir=\"$setuppath/lib/php/extensions/no-debug-non-zts-20180731/\"" >> $setuppath/etc/php.ini \
+  && echo "extension_dir=\"$setuppath/lib/php/extensions/no-debug-non-zts-20190902/\"" >> $setuppath/etc/php.ini \
   && echo 'extension = "redis.so"' >> $setuppath/etc/php.ini \
   && make clean && rm /data/src -rf
 
-RUN cp /data/apps/php/bin/php /bin/
-RUN cp /data/apps/php/sbin/php-fpm /sbin/
-
-EXPOSE 9000
-CMD ["php", "-v"]
+ln -s  /data/apps/php/sbin/php-fpm /sbin/php-fpm
