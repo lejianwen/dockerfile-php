@@ -1,7 +1,9 @@
 #!/bin/sh
+
 echo 'sh run'
+
 mkdir -p lib64 \
-  &&  cp /lib64/libcrypt.so.1 ./lib64 \
+  && cp /lib64/libcrypt.so.1 ./lib64 \
 	&& cp /lib64/libz.so.1 ./lib64 \
 	&& cp /lib64/libresolv.so.2 ./lib64 \
 	&& cp /lib64/librt.so.1 ./lib64 \
@@ -44,12 +46,13 @@ mkdir -p lib64 \
 	&& cp /lib64/libnssckbi.so ./lib64 \
 	&& cp /lib64/libstdc++.so.6 ./lib64 \
   && cp /lib64/libgcc_s.so.1 ./lib64 \
+  && cp /lib64/libonig.so.5 ./lib64 \
 	&& cp -a /lib64/libnss*.so* ./lib64 \
 	&& cp -a /lib64/libsqlite3* ./lib64 \
 	&& cp -a /lib64/libsoftokn3* ./lib64 \
 	&& cp -a /lib64/libfreeblpriv3* ./lib64 \
   && echo `strip /data/apps/php/bin/*  > /dev/null` \
   && strip /data/apps/php/sbin/php-fpm \
-  && strip /data/apps/php/lib/php/extensions/no-debug-non-zts-20180731/* \
+  && strip /data/apps/php/lib/php/extensions/no-debug-non-zts-20190902/* \
   && sed -i 's/user = nobody/user = www/' /data/apps/php/etc/php-fpm.d/www.conf \
   && sed -i 's/group = nobody/group = www/' /data/apps/php/etc/php-fpm.d/www.conf
