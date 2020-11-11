@@ -9,7 +9,7 @@ cd /data/src/php \
      		--with-pdo-mysql=mysqlnd \
      		--with-mysql-sock=/tmp/mysql.sock \
      		--enable-mysqlnd \
-     		--with-gd \
+     		--enable-gd \
      		--with-iconv \
      		--with-zlib \
      		--enable-bcmath \
@@ -24,16 +24,16 @@ cd /data/src/php \
      		--enable-pcntl \
      		--enable-sockets \
      		--with-xmlrpc \
-     		--enable-zip \
+     		--with-zip \
      		--enable-soap \
      		--with-gettext \
      		--with-curl \
-     		--with-jpeg-dir \
+     		--with-jpeg \
      		--enable-opcache \
      		--without-pear \
      		--disable-phar \
      		--disable-phpdbg \
-     		--with-freetype-dir && make -j8 && make install \
+     		--with-freetype && make -j8 && make install \
      		&& cp -a ./php.ini-production $setuppath/etc/php.ini \
      		&& cp -a $setuppath/etc/php-fpm.conf.default $setuppath/etc/php-fpm.conf \
      		&& cp -a $setuppath/etc/php-fpm.d/www.conf.default $setuppath/etc/php-fpm.d/www.conf \
