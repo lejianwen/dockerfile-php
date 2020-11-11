@@ -2,7 +2,7 @@
 set -e
 #编译前准备
 yum -y install epel-release
-yum -y install autoconf bison gcc gcc-c++ make openssl openssl-devel curl curl-devel libxml2 libxml2-devel libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel wget sqlite-devel libzip libzip-devel oniguruma oniguruma-devel
+yum -y install autoconf bison gcc gcc-c++ make openssl openssl-devel curl curl-devel libxml2 libxml2-devel libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel wget sqlite-devel oniguruma oniguruma-devel
 
 downurl=https://www.266555.net/php-7.4.12.tar.gz
 
@@ -12,4 +12,5 @@ useradd -u 1000 www -s /sbin/nologin &&
   wget $downurl -O php.tar.gz &&
   tar -zxf php.tar.gz -C ./php --strip-components 1
 
-ldconfig
+cd /data/src && wget https://libzip.org/download/libzip-1.3.2.tar.gz \
+    && tar -zxvf libzip-1.3.2.tar.gz
