@@ -37,7 +37,7 @@ cd /data/src/php &&
     --with-jpeg \
     --enable-opcache \
     --without-pear \
-  	--disable-cli \
+    --disable-cli \
     --disable-phar \
     --disable-phpdbg \
     --with-freetype && make -j8 && make install &&
@@ -55,4 +55,5 @@ cd /data/src && mkdir /data/src/phpredis -p &&
   echo 'extension = "redis.so"' >>$setuppath/etc/php.ini &&
   make clean && rm /data/src -rf
 
-ln -s  /data/apps/php/sbin/php-fpm /sbin/php-fpm
+ln -s /data/apps/php/bin/php /bin/php
+ln -s /data/apps/php/sbin/php-fpm /sbin/php-fpm
