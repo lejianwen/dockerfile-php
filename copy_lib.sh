@@ -1,7 +1,5 @@
 #!/bin/sh
-
 echo 'sh run'
-
 mkdir -p lib64 \
   && cp /lib64/libcrypt.so.1 ./lib64 \
 	&& cp /lib64/libz.so.1 ./lib64 \
@@ -51,6 +49,7 @@ mkdir -p lib64 \
 	&& cp -a /lib64/libsqlite3* ./lib64 \
 	&& cp -a /lib64/libsoftokn3* ./lib64 \
 	&& cp -a /lib64/libfreeblpriv3* ./lib64 \
+	&& cp /lib64/libzip.so.5 ./lib64 \
   && echo `strip /data/apps/php/bin/*  > /dev/null` \
   && strip /data/apps/php/sbin/php-fpm \
   && strip /data/apps/php/lib/php/extensions/no-debug-non-zts-20190902/* \
