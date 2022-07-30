@@ -1,4 +1,6 @@
 #!/bin/sh
+
+# ldd php
 echo 'sh run'
 mkdir -p lib64 \
   && cp /lib64/libcrypt.so.1 ./lib64 \
@@ -7,6 +9,7 @@ mkdir -p lib64 \
 	&& cp /lib64/librt.so.1 ./lib64 \
 	&& cp /lib64/libpng15.so.15 ./lib64 \
 	&& cp /lib64/libjpeg.so.62 ./lib64 \
+	&& cp /lib64/libwebp.so.4 ./lib64 \
 	&& cp /lib64/libcurl.so.4 ./lib64 \
 	&& cp /lib64/libm.so.6 ./lib64 \
 	&& cp /lib64/libdl.so.2 ./lib64 \

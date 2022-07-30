@@ -1,4 +1,4 @@
-FROM lejianwen/php:7.4 as php-builder
+FROM lejianwen/php:7.4.1 as php-builder
 MAINTAINER lejianwen <84855512@qq.com>
 WORKDIR /rootfs
 COPY copy_lib.sh /data/copy_lib.sh

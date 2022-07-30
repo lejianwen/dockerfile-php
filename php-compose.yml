@@ -1,7 +1,7 @@
 version: '3'
 services:
   php70-fpm:
-    image: lejianwen/php:mini-7.4
+    image: lejianwen/php:mini-7.4.1
     ports:
       - '9000:9000'
     command: /data/apps/php/sbin/php-fpm --nodaemonize --fpm-config /data/apps/php/etc/php-fpm.conf
