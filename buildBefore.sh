@@ -4,7 +4,7 @@ set -e
 yum -y install epel-release
 yum -y install autoconf bison gcc gcc-c++ make openssl openssl-devel curl curl-devel libxml2 libxml2-devel libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel wget sqlite-devel oniguruma oniguruma-devel
 
-downurl=https://www.266555.net/php-7.4.12.tar.gz
+downurl=https://www.php.net/distributions/php-7.4.30.tar.gz
 
 useradd -u 1000 www -s /sbin/nologin &&
   mkdir /data/src/php -p /data/apps/php/etc &&
