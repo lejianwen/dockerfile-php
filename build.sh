@@ -16,6 +16,9 @@ cd /data/src/php &&
     --with-mysql-sock=/tmp/mysql.sock \
     --enable-mysqlnd \
     --enable-gd \
+    --with-jpeg \
+    --with-webp \
+    --with-freetype \
     --with-iconv \
     --with-zlib \
     --enable-bcmath \
@@ -34,12 +37,11 @@ cd /data/src/php &&
     --enable-soap \
     --with-gettext \
     --with-curl \
-    --with-jpeg \
     --enable-opcache \
     --without-pear \
     --disable-phar \
     --disable-phpdbg \
-    --with-freetype && make -j8 && make install &&
+    && make -j8 && make install &&
   cp -a ./php.ini-production $setuppath/etc/php.ini &&
   cp -a $setuppath/etc/php-fpm.conf.default $setuppath/etc/php-fpm.conf &&
   cp -a $setuppath/etc/php-fpm.d/www.conf.default $setuppath/etc/php-fpm.d/www.conf &&
