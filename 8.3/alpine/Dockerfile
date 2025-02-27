@@ -17,4 +17,5 @@ RUN apk add --no-cache --virtual .pecl-deps  \
    && docker-php-source delete \
    && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
    && apk del --no-network .pecl-deps \
+   && adduser www -u 1000 -s /sbin/nologin -D \
    && rm -rf /tmp/pear ~/.pearrc;
