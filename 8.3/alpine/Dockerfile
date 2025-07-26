@@ -8,7 +8,7 @@ RUN apk add --no-cache --virtual .pecl-deps  \
     make \
     linux-headers \
     libc-dev \
-   && docker-php-ext-install pdo_mysql && docker-php-ext-install pcntl && docker-php-ext-install opcache; \
+   && docker-php-ext-install pdo_mysql && docker-php-ext-install pcntl && docker-php-ext-install opcache && docker-php-ext-install bcmath; \
 #simdjson 需要 libstdc++ 库
 #   pecl install simdjson && docker-php-ext-enable simdjson \
 #   && apk add libstdc++; \
